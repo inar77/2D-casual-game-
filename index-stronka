@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RENOVO GREEN — plan a beautiful, lower-impact room renovation from a single photo.">
+  <title>RENOVO GREEN — Renovate with purpose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,50..100&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #1c3227;
+      --forest-2: #25402f;
+      --moss: #3f6b4f;
+      --sage: #8fae8f;
+      --sage-soft: #dfe8dc;
+      --paper: #f4efe5;
+      --paper-2: #ebe4d6;
+      --card: #fffdf8;
+      --ink: #1d2a22;
+      --muted: #6b7468;
+      --line: #ddd5c5;
+      --clay: #c4623a;
+      --clay-soft: #f4dccf;
+      --sun: #e9b949;
+      --radius: 22px;
+      --shadow: 0 1px 2px rgba(28, 50, 39, .06), 0 14px 40px -18px rgba(28, 50, 39, .28);
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--paper);
+      background-image: radial-gradient(circle at 85% -10%, rgba(233, 185, 73, .16), transparent 40%),
+                        radial-gradient(circle at 10% 110%, rgba(143, 174, 143, .22), transparent 45%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    img, svg { display: block; max-width: 100%; }
+    h1, h2, h3, h4, p { margin: 0; }
+    :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; border-radius: 6px; }
+    .hidden { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+    /* ---------- Shell ---------- */
+    .shell { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 100vh; }
+
+    .sidebar {
+      position: sticky; top: 0; height: 100vh;
+      display: flex; flex-direction: column; gap: 26px;
+      padding: 30px 22px 22px;
+      background: var(--forest);
+      color: #e9efe6;
+      overflow-y: auto;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+    .brand-mark {
+      width: 40px; height: 40px; display: grid; place-items: center;
+      border-radius: 14px 14px 14px 4px;
+      background: var(--sun); color: var(--forest);
+      font-family: var(--serif); font-weight: 700; font-size: 20px;
+    }
+    .brand-name { font-weight: 700; letter-spacing: .16em; font-size: 13px; line-height: 1.25; }
+    .brand-name span { display: block; color: var(--sage); }
+
+    .project-chip {
+      display: flex; gap: 12px; align-items: center;
+      padding: 14px; border-radius: 16px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+    .project-thumb { width: 44px; height: 44px; border-radius: 12px; overflow: hidden; flex: none; background: var(--forest-2); }
+    .project-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .project-chip strong { display: block; font-size: 14px; }
+    .project-chip small { color: #a8b8a8; font-size: 12px; }
+
+    .nav-caption { font-size: 10.5px; font-weight: 700; letter-spacing: .16em; color: #8ea291; margin-bottom: -14px; }
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; position: relative; }
+    .steps::before { content: ""; position: absolute; left: 21px; top: 20px; bottom: 20px; width: 1px; background: rgba(255,255,255,.12); }
+    .step-link {
+      width: 100%; position: relative;
+      display: flex; align-items: center; gap: 13px;
+      padding: 10px 10px; border: 0; border-radius: 12px;
+      background: transparent; color: #b9c7b9; text-align: left;
+      font-size: 14px; font-weight: 500; transition: background .2s, color .2s;
+    }
+    .step-link:hover { background: rgba(255,255,255,.05); color: #fff; }
+    .step-dot {
+      width: 24px; height: 24px; flex: none; display: grid; place-items: center;
+      border-radius: 50%; font-size: 11px; font-weight: 700;
+      background: var(--forest); border: 1px solid rgba(255,255,255,.22); color: #b9c7b9;
+      position: relative; z-index: 1;
+    }
+    .step-link.done .step-dot { background: var(--moss); border-color: var(--moss); color: #fff; }
+    .step-link.active { background: rgba(233, 185, 73, .12); color: #fff; }
+    .step-link.active .step-dot { background: var(--sun); border-color: var(--sun); color: var(--forest); }
+
+    .impact-widget { margin-top: auto; padding: 18px; border-radius: 18px; background: linear-gradient(140deg, #2f5440, #213a2d); }
+    .impact-widget small { color: #b6cbb8; font-size: 12px; }
+    .impact-widget strong { display: block; font-family: var(--serif); font-size: 30px; font-weight: 600; margin: 4px 0 10px; }
+    .meter { height: 6px; border-radius: 9px; background: rgba(255,255,255,.12); overflow: hidden; }
+    .meter i { display: block; height: 100%; width: 0; background: var(--sun); border-radius: inherit; transition: width .6s ease; }
+    .reset-link { background: none; border: 0; color: #8ea291; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; padding: 0; align-self: flex-start; }
+    .reset-link:hover { color: #fff; }
+
+    .mobile-bar { display: none; }
+
+    /* ---------- Content ---------- */
+    .main { min-width: 0; }
+    .content { width: min(1120px, 100%); margin: 0 auto; padding: 46px 48px 64px; }
+    .screen { display: none; }
+    .screen.active { display: block; animation: rise .45s cubic-bezier(.2,.7,.2,1) both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--moss); margin-bottom: 14px; }
+    .kicker::before { content: ""; width: 18px; height: 1.5px; background: currentColor; }
+    h1, h2 { font-family: var(--serif); font-weight: 500; letter-spacing: -.02em; color: var(--forest); font-variation-settings: "SOFT" 80; }
+    h1 { font-size: clamp(36px, 4.6vw, 62px); line-height: 1.02; }
+    h2 { font-size: clamp(28px, 3vw, 40px); line-height: 1.08; }
+    h1 em, h2 em { font-style: italic; color: var(--clay); }
+    h3 { font-size: 17px; font-weight: 600; color: var(--forest); }
+    p { line-height: 1.6; color: var(--muted); }
+    .lede { font-size: 17px; max-width: 560px; margin-top: 16px; }
+
+    .page-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 34px; }
+
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 22px; border-radius: 999px; border: 1px solid transparent;
+      font-weight: 600; font-size: 15px; text-decoration: none;
+      transition: transform .15s, background .2s, box-shadow .2s, opacity .2s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--forest); color: #fff; box-shadow: 0 10px 24px -12px rgba(28,50,39,.7); }
+    .btn-primary:hover { background: var(--moss); }
+    .btn-clay { background: var(--clay); color: #fff; }
+    .btn-clay:hover { background: #a94f2b; }
+    .btn-ghost { background: transparent; border-color: var(--line); color: var(--forest); }
+    .btn-ghost:hover { background: var(--card); }
+    .btn[disabled] { opacity: .4; cursor: not-allowed; box-shadow: none; }
+    .btn-sm { padding: 10px 16px; font-size: 13.5px; }
+    .arrow { transition: transform .2s; }
+    .btn:hover .arrow { transform: translateX(3px); }
+
+    .page-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--line); }
+
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; background: var(--sage-soft); color: var(--moss); }
+    .pill.clay { background: var(--clay-soft); color: #9b4523; }
+    .pill.sun { background: #f8ebc4; color: #7d5a0b; }
+
+    /* ---------- Home ---------- */
+    .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; min-height: 520px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .hero-proof { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 28px; font-size: 13.5px; color: var(--muted); }
+    .hero-proof span::before { content: "✓"; color: var(--moss); font-weight: 700; margin-right: 6px; }
+    .hero-art { position: relative; }
+    .hero-frame { border-radius: 200px 200px 28px 28px; overflow: hidden; box-shadow: var(--shadow); border: 8px solid var(--card); aspect-ratio: 4 / 4.6; background: var(--paper-2); }
+    .hero-frame svg { width: 100%; height: 100%; object-fit: cover; }
+    .float { position: absolute; display: flex; gap: 10px; align-items: center; padding: 12px 16px; border-radius: 16px; background: var(--card); box-shadow: var(--shadow); font-size: 13px; animation: bob 6s ease-in-out infinite; }
+    .float b { display: block; font-size: 15px; color: var(--forest); }
+    .float small { color: var(--muted); }
+    .float .ico { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: var(--sage-soft); font-size: 16px; }
+    .float-1 { left: -28px; top: 18%; }
+    .float-2 { right: -18px; bottom: 12%; animation-delay: -3s; }
+    @keyframes bob { 50% { transform: translateY(-8px); } }
+
+    .how { margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .how article { padding: 26px; }
+    .how .num { font-family: var(--serif); font-size: 40px; color: var(--clay); line-height: 1; font-style: italic; }
+    .how h3 { margin: 16px 0 6px; }
+    .how p { font-size: 14.5px; }
+
+    /* ---------- Upload ---------- */
+    .upload-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 22px; align-items: start; }
+    .dropzone {
+      position: relative; min-height: 380px; display: grid; place-items: center; text-align: center;
+      padding: 40px; border: 2px dashed #c9bfac; border-radius: var(--radius);
+      background: repeating-linear-gradient(-45deg, transparent 0 14px, rgba(143,174,143,.07) 14px 28px), var(--card);
+      cursor: pointer; transition: border-color .2s, background-color .2s, transform .2s;
+    }
+    .dropzone:hover, .dropzone.drag { border-color: var(--moss); transform: scale(1.005); }
+    .dropzone.drag { background-color: #f0f5ee; }
+    .drop-icon { width: 66px; height: 66px; margin: 0 auto 18px; display: grid; place-items: center; border-radius: 22px; background: var(--forest); color: var(--sun); font-size: 28px; }
+    .dropzone h3 { font-family: var(--serif); font-size: 24px; font-weight: 500; }
+    .dropzone p { margin: 6px 0 18px; }
+    .dropzone small { display: block; margin-top: 14px; color: var(--muted); font-size: 12.5px; }
+    .preview { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 6px solid var(--card); background: var(--card); }
+    .preview img { width: 100%; max-height: 460px; object-fit: cover; }
+    .preview-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 10px 8px; }
+    .preview-bar span { font-size: 14px; font-weight: 600; color: var(--moss); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tips { padding: 26px; }
+    .tips ol { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 16px; counter-reset: tip; }
+    .tips li { counter-increment: tip; display: grid; grid-template-columns: 34px 1fr; gap: 12px; font-size: 14px; }
+    .tips li::before { content: counter(tip, decimal-leading-zero); font-family: var(--serif); font-style: italic; color: var(--clay); font-size: 20px; }
+    .tips li strong { display: block; color: var(--forest); }
+    .tips li span { color: var(--muted); }
+    .sample-btn { margin-top: 22px; width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 16px; border: 1px solid var(--line); background: var(--paper); text-align: left; transition: border-color .2s; }
+    .sample-btn:hover { border-color: var(--moss); }
+    .sample-btn .thumb { width: 64px; height: 48px; border-radius: 10px; overflow: hidden; flex: none; }
+    .sample-btn strong { display: block; font-size: 14px; color: var(--forest); }
+    .sample-btn small { color: var(--muted); font-size: 12.5px; }
+    .privacy { margin-top: 14px; font-size: 13px; color: var(--muted); }
+
+    .size-field { margin-top: 22px; padding: 20px 22px; display: grid; gap: 10px; }
+    .size-field label { display: flex; justify-content: space-between; font-weight: 600; font-size: 14px; color: var(--forest); }
+    .size-field output { font-family: var(--serif); font-size: 20px; }
+    input[type="range"] { width: 100%; accent-color: var(--moss); }
+
+    /* ---------- Analysis ---------- */
+    .analysis-layout { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px; align-items: start; }
+    .scan { position: relative; border-radius: var(--radius); overflow: hidden; border: 6px solid var(--card); box-shadow: var(--shadow); background: var(--paper-2); }
+    .scan img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+    .scan-line { position: absolute; left: 0; right: 0; height: 90px; top: -90px; background: linear-gradient(to bottom, transparent, rgba(233,185,73,.45)); border-bottom: 2px solid var(--sun); pointer-events: none; }
+    .scanning .scan-line { animation: scan 1.6s linear infinite; }
+    @keyframes scan { to { top: 100%; } }
+    .scan-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px); background-size: 40px 40px; opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .scanning .scan-grid { opacity: 1; }
+    .tag { position: absolute; padding: 7px 11px; border-radius: 999px; background: rgba(28,50,39,.86); color: #fff; font-size: 12px; font-weight: 600; backdrop-filter: blur(6px); opacity: 0; transform: scale(.8); transition: .35s cubic-bezier(.3,1.6,.5,1); }
+    .tag::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: var(--sun); }
+    .tag.show { opacity: 1; transform: none; }
+    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .facts div { padding: 14px 16px; }
+    .facts small { display: block; color: var(--muted); font-size: 12px; }
+    .facts strong { font-family: var(--serif); font-size: 20px; font-weight: 500; color: var(--forest); }
+
+    .progress-card { padding: 22px; }
+    .progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+    .progress-top strong { font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--forest); }
+    .bar { height: 8px; border-radius: 9px; background: var(--paper-2); overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--moss), var(--sage)); border-radius: inherit; transition: width .5s ease; }
+    .scan-steps { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; font-size: 14px; }
+    .scan-steps li { display: flex; gap: 10px; align-items: center; color: var(--muted); }
+    .scan-steps li::before { content: ""; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line); flex: none; }
+    .scan-steps li.active { color: var(--forest); font-weight: 600; }
+    .scan-steps li.active::before { border-color: var(--sun); border-top-color: transparent; animation: spin .8s linear infinite; }
+    .scan-steps li.done { color: var(--moss); }
+    .scan-steps li.done::before { background: var(--moss) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/12px no-repeat; border-color: var(--moss); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .insights { display: grid; gap: 12px; }
+    .insight { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 18px; opacity: 0; transform: translateY(8px); transition: .45s ease; }
+    .insight.show { opacity: 1; transform: none; }
+    .insight .ico { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: var(--sage-soft); font-size: 19px; }
+    .insight-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+    .insight p { font-size: 14px; }
+    .insight b { color: var(--forest); }
+
+    /* ---------- Ideas ---------- */
+    .styles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .style-card { padding: 0; overflow: hidden; text-align: left; border: 2px solid transparent; outline: 1px solid var(--line); outline-offset: -1px; transition: transform .25s, box-shadow .25s, border-color .2s; }
+    .style-card:hover { transform: translateY(-4px); }
+    .style-card.selected { border-color: var(--forest); outline-color: transparent; }
+    .style-visual { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .style-visual svg { width: 100%; height: 100%; }
+    .style-check { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.85); color: transparent; font-weight: 700; transition: .2s; }
+    .selected .style-check { background: var(--forest); color: var(--sun); }
+    .match { position: absolute; left: 12px; top: 12px; }
+    .style-body { padding: 18px 20px 22px; }
+    .style-body h3 { font-family: var(--serif); font-size: 22px; font-weight: 500; }
+    .style-body p { font-size: 14px; margin: 6px 0 14px; }
+    .swatches { display: flex; gap: 6px; }
+    .swatches i { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--card); box-shadow: 0 0 0 1px var(--line); }
+    .style-note { margin-top: 22px; display: flex; align-items: center; gap: 16px; padding: 18px 22px; }
+    .style-note .ico { font-size: 22px; }
+    .style-note p { font-size: 14.5px; }
+    .style-note b { color: var(--forest); }
+
+    /* ---------- Materials ---------- */
+    .mat-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 22px; align-items: start; }
+    .mat-list { padding: 8px; }
+    .mat { display: grid; grid-template-columns: auto 44px 1fr auto; gap: 14px; align-items: center; padding: 16px 14px; border-radius: 16px; cursor: pointer; transition: background .2s; }
+    .mat + .mat { border-top: 1px solid #eee7da; }
+    .mat:hover { background: var(--paper); }
+    .mat input { width: 20px; height: 20px; accent-color: var(--forest); }
+    .mat .ico { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px; background: var(--paper-2); font-size: 20px; }
+    .mat strong { display: block; color: var(--forest); font-size: 15px; }
+    .mat small { color: var(--muted); font-size: 13px; }
+    .mat .pill { margin-top: 6px; }
+    .mat .price { text-align: right; font-family: var(--serif); font-size: 19px; color: var(--forest); white-space: nowrap; }
+    .mat .price small { display: block; font-family: var(--sans); font-size: 12px; }
+    .mat:not(:has(input:checked)) .price, .mat:not(:has(input:checked)) strong { opacity: .45; }
+
+    .summary { position: sticky; top: 24px; padding: 26px; background: var(--forest); color: #e9efe6; border: 0; }
+    .summary .label { font-size: 11.5px; letter-spacing: .16em; font-weight: 700; color: var(--sage); }
+    .summary .total { font-family: var(--serif); font-size: 54px; font-weight: 500; margin: 8px 0 2px; color: #fff; line-height: 1; }
+    .summary .range { font-size: 13.5px; color: #b6cbb8; }
+    .rows { margin: 22px 0; display: grid; gap: 10px; font-size: 14px; }
+    .rows div { display: flex; justify-content: space-between; }
+    .rows .save { color: var(--sun); }
+    .rows .strike { text-decoration: line-through; opacity: .5; }
+    .toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 14px; background: rgba(255,255,255,.07); cursor: pointer; font-size: 14px; }
+    .switch { position: relative; width: 44px; height: 26px; flex: none; }
+    .switch input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+    .switch span { position: absolute; inset: 0; border-radius: 99px; background: rgba(255,255,255,.2); transition: .2s; pointer-events: none; }
+    .switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: .2s; }
+    .switch input:checked + span { background: var(--sun); }
+    .switch input:checked + span::after { transform: translateX(18px); }
+    .co2-box { margin-top: 14px; padding: 16px; border-radius: 14px; background: rgba(143,174,143,.16); display: flex; gap: 12px; align-items: center; font-size: 13.5px; color: #cfe0cf; }
+    .co2-box strong { display: block; font-family: var(--serif); font-size: 22px; color: #fff; font-weight: 500; }
+    .fine { font-size: 12px; color: #8ea291; margin-top: 14px; line-height: 1.5; }
+
+    /* ---------- Guide ---------- */
+    .guide-banner { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; padding: 24px 28px; margin-bottom: 22px; background: var(--clay-soft); border-color: #ecc8b5; }
+    .guide-banner h3 { font-family: var(--serif); font-size: 24px; font-weight: 500; margin-top: 8px; }
+    .guide-stats { display: flex; gap: 28px; }
+    .guide-stats div { text-align: center; }
+    .guide-stats strong { display: block; font-family: var(--serif); font-size: 30px; font-weight: 500; color: var(--forest); }
+    .guide-stats span { font-size: 12.5px; color: #8a5a43; }
+    .guide-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr); gap: 22px; align-items: start; }
+    .checklist { padding: 24px; }
+    .checklist-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .checklist-head span { font-size: 13.5px; font-weight: 600; color: var(--moss); }
+    .gstep { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 18px 4px; border-top: 1px solid #eee7da; cursor: pointer; }
+    .gstep:first-of-type { border-top: 0; margin-top: 10px; }
+    .gstep input { position: absolute; opacity: 0; }
+    .gcheck { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-family: var(--serif); font-weight: 600; color: var(--muted); transition: .2s; }
+    .gstep:hover .gcheck { border-color: var(--moss); }
+    .gstep input:checked ~ .gcheck { background: var(--moss); border-color: var(--moss); color: #fff; font-size: 0; }
+    .gstep input:checked ~ .gcheck::after { content: "✓"; font-size: 16px; }
+    .gstep input:focus-visible ~ .gcheck { outline: 3px solid var(--sun); outline-offset: 2px; }
+    .gstep strong { display: block; color: var(--forest); font-size: 15.5px; }
+    .gstep p { font-size: 14px; margin: 4px 0 8px; }
+    .gstep input:checked ~ div strong { text-decoration: line-through; text-decoration-color: var(--sage); opacity: .6; }
+    .gmeta { display: flex; gap: 8px; flex-wrap: wrap; }
+    .aside-stack { display: grid; gap: 16px; }
+    .aside-stack .card { padding: 22px; }
+    .aside-stack h4 { font-size: 15px; color: var(--forest); margin-bottom: 8px; }
+    .aside-stack p { font-size: 14px; }
+    .toolkit { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 8px; font-size: 14px; }
+    .toolkit li::before { content: "—"; color: var(--clay); margin-right: 8px; }
+    .done-banner { margin-top: 14px; padding: 16px; border-radius: 14px; background: var(--sage-soft); color: var(--moss); font-weight: 600; font-size: 14px; }
+
+    /* ---------- Green choices ---------- */
+    .impact-hero { display: grid; grid-template-columns: auto 1fr repeat(3, auto); gap: 30px; align-items: center; padding: 26px 30px; background: var(--forest); color: #e9efe6; border: 0; margin-bottom: 24px; }
+    .grade { width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; background: var(--sun); color: var(--forest); font-family: var(--serif); font-size: 40px; font-weight: 600; box-shadow: 0 0 0 8px rgba(233,185,73,.18); }
+    .impact-hero h3 { color: #fff; font-family: var(--serif); font-size: 24px; font-weight: 500; }
+    .impact-hero p { color: #b6cbb8; font-size: 14px; }
+    .stat strong { display: block; font-family: var(--serif); font-size: 32px; font-weight: 500; color: #fff; }
+    .stat span { font-size: 12.5px; color: #b6cbb8; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
+    .chip { padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-size: 14px; font-weight: 600; color: var(--forest); transition: .2s; }
+    .chip:hover { border-color: var(--moss); }
+    .chip.active { background: var(--forest); border-color: var(--forest); color: #fff; }
+    .filters .count { margin-left: auto; font-size: 13.5px; color: var(--muted); }
+    .choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .choice { overflow: hidden; display: flex; flex-direction: column; transition: transform .25s; }
+    .choice:hover { transform: translateY(-3px); }
+    .choice-visual { height: 140px; display: grid; place-items: center; font-size: 54px; position: relative; }
+    .choice-visual .pill { position: absolute; left: 14px; top: 14px; }
+    .choice-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+    .choice-body p { font-size: 14px; margin: 6px 0 14px; }
+    .choice-meta { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--moss); font-weight: 600; margin-top: auto; }
+    .choice-meta strong { font-family: var(--serif); font-size: 18px; color: var(--forest); font-weight: 500; }
+    .add-btn { margin-top: 14px; width: 100%; padding: 11px; border-radius: 12px; border: 1px solid var(--forest); background: transparent; color: var(--forest); font-weight: 600; font-size: 14px; transition: .2s; }
+    .add-btn:hover { background: var(--paper); }
+    .choice.added .add-btn { background: var(--forest); color: #fff; }
+    .choice.added { border-color: var(--moss); }
+    .tip-card { margin-top: 24px; padding: 20px 24px; display: flex; gap: 14px; align-items: center; background: #f8ebc4; border-color: #ecd690; }
+    .tip-card p { color: #6a5113; font-size: 14.5px; }
+
+    .final { margin-top: 28px; padding: 30px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
+    .final h2 { font-size: 30px; }
+    .final .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ---------- Toast & drawer ---------- */
+    #toast { position: fixed; left: 50%; bottom: 28px; z-index: 100; transform: translate(-50%, 30px); opacity: 0; pointer-events: none; padding: 13px 20px; border-radius: 999px; background: var(--forest); color: #fff; font-size: 14px; font-weight: 600; box-shadow: var(--shadow); transition: .3s; }
+    #toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .scrim { display: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1100px) {
+      .content { padding: 36px 30px 56px; }
+      .hero { grid-template-columns: 1fr; min-height: 0; }
+      .hero-art { max-width: 440px; margin: 0 auto; width: 100%; }
+      .impact-hero { grid-template-columns: auto 1fr; }
+      .impact-hero .stat { grid-column: auto; }
+    }
+    @media (max-width: 920px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 290px; z-index: 60; transform: translateX(-100%); transition: transform .3s ease; }
+      body.menu-open .sidebar { transform: none; }
+      body.menu-open .scrim { display: block; position: fixed; inset: 0; z-index: 55; background: rgba(20, 30, 24, .45); }
+      .mobile-bar { display: flex; position: sticky; top: 0; z-index: 40; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; background: rgba(244, 239, 229, .9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .mobile-bar .brand-name span { display: inline; }
+      .mobile-bar .brand { color: var(--forest); }
+      .menu-btn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-size: 18px; }
+      .mobile-step { font-size: 12px; font-weight: 700; color: var(--moss); letter-spacing: .08em; }
+      .upload-layout, .analysis-layout, .mat-layout, .guide-layout { grid-template-columns: 1fr; }
+      .styles, .choices, .how { grid-template-columns: 1fr 1fr; }
+      .summary { position: static; }
+    }
+    @media (max-width: 620px) {
+      .content { padding: 26px 18px 48px; }
+      .styles, .choices, .how, .facts { grid-template-columns: 1fr; }
+      .page-head { flex-direction: column; align-items: flex-start; }
+      .float-1 { left: -6px; } .float-2 { right: -6px; }
+      .mat { grid-template-columns: auto 1fr auto; }
+      .mat .ico { display: none; }
+      .guide-banner, .final { grid-template-columns: 1fr; }
+      .guide-stats { justify-content: space-between; }
+      .impact-hero { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .impact-hero > div:nth-child(2) { grid-column: 1 / -1; order: -1; }
+      .page-actions .btn { flex: 1; padding: 13px 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    @media print {
+      .sidebar, .mobile-bar, .page-actions, .aside-stack, #toast, .screen:not(#guide) { display: none !important; }
+      .shell { display: block; } body { background: #fff; }
+      #guide { display: block !important; }
+      .card { box-shadow: none; }
+      .guide-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="Project navigation">
+      <a class="brand" href="#home" data-go="home">
+        <span class="brand-mark">R</span>
+        <span class="brand-name">RENOVO <span>GREEN</span></span>
+      </a>
+
+      <div class="project-chip">
+        <div class="project-thumb" id="projectThumb"></div>
+        <div><strong>Living room</strong><small id="projectMeta">24 m² · Warm minimalism</small></div>
+      </div>
+
+      <div class="nav-caption">YOUR JOURNEY</div>
+      <ol class="steps" id="stepsNav"></ol>
+
+      <div class="impact-widget">
+        <small>Your project could save</small>
+        <strong><span data-bind="co2">0</span> kg CO₂e</strong>
+        <div class="meter"><i id="sideMeter"></i></div>
+      </div>
+      <button class="reset-link" id="resetBtn" type="button">Start a new project</button>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="main">
+      <header class="mobile-bar">
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-controls="sidebar">☰</button>
+        <a class="brand" href="#home" data-go="home"><span class="brand-name">RENOVO <span>GREEN</span></span></a>
+        <span class="mobile-step" id="mobileStep">1 / 7</span>
+      </header>
+
+      <div class="content">
+        <!-- HOME -->
+        <section class="screen" id="home" aria-labelledby="h-home">
+          <div class="hero">
+            <div>
+              <span class="kicker">Sustainable renovation planner</span>
+              <h1 id="h-home">Renovate beautifully.<br><em>Live lightly.</em></h1>
+              <p class="lede">Upload one photo of your room. RENOVO GREEN suggests a style, builds a costed list of low-impact materials and turns it into a weekend DIY plan.</p>
+              <div class="hero-actions">
+                <button class="btn btn-primary" data-go="upload">Start with a photo <span class="arrow">→</span></button>
+                <button class="btn btn-ghost" id="heroSample">Try the sample room</button>
+              </div>
+              <div class="hero-proof"><span>No sign-up</span><span>Photo stays on your device</span><span>Progress saved automatically</span></div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="hero-frame" id="heroArt"></div>
+              <div class="float float-1"><span class="ico">📐</span><div><b>24 m²</b><small>room analysed</small></div></div>
+              <div class="float float-2"><span class="ico">🌱</span><div><b>−38% carbon</b><small>vs. new materials</small></div></div>
+            </div>
+          </div>
+
+          <div class="how">
+            <article class="card"><div class="num">01</div><h3>Show us your space</h3><p>A single daylight photo is enough to read the room's light, surfaces and potential.</p></article>
+            <article class="card"><div class="num">02</div><h3>Choose a direction</h3><p>Three styles matched to your room, each with a palette built from natural, low-VOC finishes.</p></article>
+            <article class="card"><div class="num">03</div><h3>Plan, cost &amp; do it</h3><p>A live budget, a CO₂ estimate and a step-by-step guide you can tick off as you go.</p></article>
+          </div>
+        </section>
+
+        <!-- UPLOAD -->
+        <section class="screen" id="upload" aria-labelledby="h-upload">
+          <div class="page-head">
+            <div><span class="kicker">Step 1 · Your space</span><h1 id="h-upload">Let's see your <em>room</em>.</h1><p class="lede">Drop a photo below. It never leaves your browser.</p></div>
+          </div>
+
+          <div class="upload-layout">
+            <div>
+              <input type="file" id="fileInput" accept="image/*" class="sr-only" tabindex="-1">
+              <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload a room photo">
+                <div>
+                  <div class="drop-icon">↑</div>
+                  <h3>Drop your room photo here</h3>
+                  <p>or click to browse your files</p>
+                  <span class="btn btn-primary btn-sm">Choose a photo</span>
+                  <small>JPG, PNG or WEBP · up to 10 MB</small>
+                </div>
+              </div>
+              <div class="preview hidden" id="preview">
+                <img id="previewImg" alt="Your room">
+                <div class="preview-bar"><span id="fileName">✓ Photo ready</span><button class="btn btn-ghost btn-sm" id="removePhoto" type="button">Replace photo</button></div>
+              </div>
+
+              <div class="card size-field">
+                <label for="sizeInput">Approximate floor area <output id="sizeOut">24 m²</output></label>
+                <input type="range" id="sizeInput" min="8" max="60" step="1" value="24">
+                <p style="font-size:13px">Used to scale material quantities and costs.</p>
+              </div>
+            </div>
+
+            <aside class="card tips">
+              <span class="kicker">For best results</span>
+              <h3>A good photo helps us see the possibilities.</h3>
+              <ol>
+                <li><div><strong>Use natural light</strong><span>Shoot during the day with lights off.</span></div></li>
+                <li><div><strong>Show the whole room</strong><span>Stand in a corner and include floor, walls and windows.</span></div></li>
+                <li><div><strong>Keep it sharp</strong><span>Hold steady and avoid very dark or blurry shots.</span></div></li>
+              </ol>
+              <button class="sample-btn" id="sampleBtn" type="button">
+                <span class="thumb" id="sampleThumb"></span>
+                <span><strong>No photo handy?</strong><small>Use our sample living room →</small></span>
+              </button>
+            </aside>
+          </div>
+
+          <div class="page-actions">
+            <button class="btn btn-ghost" data-go="home">← Back</button>
+            <button class="btn btn-primary" id="analyseBtn" disabled>Analyse my room <span class="arrow">→</span></button>
+          </div>
+        </section>
+
+        <!-- ANALYSIS -->
+        <section class="screen" id="analysis" aria-labelledby="h-analysis">
+          <div class="page-head">
+            <div><span class="kicker">Step 2 · Room analysis</span><h1 id="h-analysis">A fresh look at <em>your space</em>.</h1><p class="lede">We read the light, surfaces and layout to find changes with the biggest impact and the smallest footprint.</p></div>
+            <button class="btn btn-ghost btn-sm" id="rerunBtn" type="button">↻ Run again</button>
+          </div>
+
+          <div class="analysis-layout">
+            <div>
+              <div class="scan" id="scan">
+                <img id="scanImg" alt="Room being analysed">
+                <div class="scan-grid"></div>
+                <div class="scan-line"></div>
+                <span class="tag" style="left:8%;top:14%">Wall surface</span>
+                <span class="tag" style="right:10%;top:22%">Natural light</span>
+                <span class="tag" style="left:18%;bottom:14%">Timber floor</span>
+                <span class="tag" style="right:16%;bottom:30%">Soft furnishings</span>
+              </div>
+              <div class="facts">
+                <div class="card"><small>Room type</small><strong>Living room</strong></div>
+                <div class="card"><small>Floor area</small><strong><span data-bind="size">24</span> m²</strong></div>
+                <div class="card"><small>Daylight</small><strong>Good</strong></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="card progress-card" id="progressCard">
+                <div class="progress-top"><span class="kicker" style="margin:0" id="scanStatus">Analysing</span><strong id="scanPct">0%</strong></div>
+                <div class="bar"><i id="scanBar"></i></div>
+                <ul class="scan-steps" id="scanSteps">
+                  <li>Detecting surfaces &amp; materials</li>
+                  <li>Measuring light &amp; colour</li>
+                  <li>Checking what can be kept</li>
+                  <li>Matching low-impact upgrades</li>
+                </ul>
+              </div>
+              <div class="insights hidden" id="insights">
+                <div class="card insight"><span class="ico">☀︎</span><div><div class="insight-head"><h3>Lighting potential</h3><span class="pill sun">High impact</span></div><p>Warmer, lighter walls could make the room feel about <b>18% brighter</b> without new fixtures.</p></div></div>
+                <div class="card insight"><span class="ico">🪵</span><div><div class="insight-head"><h3>Keep the floor</h3><span class="pill">Low waste</span></div><p>The timber looks sound. <b>Sanding and oiling</b> beats replacement on cost and carbon.</p></div></div>
+                <div class="card insight"><span class="ico">🎨</span><div><div class="insight-head"><h3>Refresh the walls</h3><span class="pill">Healthier air</span></div><p>Breathable mineral paint has <b>near-zero VOCs</b> and helps regulate humidity.</p></div></div>
+                <div class="card insight"><span class="ico">🧶</span><div><div class="insight-head"><h3>Soften with textiles</h3><span class="pill clay">Quick win</span></div><p>Recycled wool and linen add <b>warmth and acoustics</b> with no building work.</p></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-actions">
+            <button class="btn btn-ghost" data-go="upload">← Back</button>
+            <button class="btn btn-primary" id="toIdeas" data-go="ideas" disabled>See renovation ideas <span class="arrow">→</span></button>
+          </div>
+        </section>
+
+        <!-- IDEAS -->
+        <section class="screen" id="ideas" aria-labelledby="h-ideas">
+          <div class="page-head">
+            <div><span class="kicker">Step 3 · Style direction</span><h1 id="h-ideas">A space that feels <em>like you</em>.</h1><p class="lede">Three directions that suit your room's light and existing floor. Pick one — the materials and guide adapt to it.</p></div>
+          </div>
+          <div class="styles" id="styles" role="radiogroup" aria-label="Renovation style"></div>
+          <div class="card style-note"><span class="ico">✦</span><p>Selected: <b id="styleName">Warm minimalism</b>. <span id="styleBlurb"></span></p></div>
+          <div class="page-actions">
+            <button class="btn btn-ghost" data-go="analysis">← Back</button>
+            <button class="btn btn-primary" data-go="materials">Materials &amp; costs <span class="arrow">→</span></button>
+          </div>
+        </section>
+
+        <!-- MATERIALS -->
+        <section class="screen" id="materials" aria-labelledby="h-materials">
+          <div class="page-head">
+            <div><span class="kicker">Step 4 · Materials &amp; cost</span><h1 id="h-materials">Good materials. <em>Clear costs.</em></h1><p class="lede">Tick what you want to include. Prices update for your <span data-bind="size">24</span> m² room in the <span data-bind="style">Warm minimalism</span> style.</p></div>
+          </div>
+          <div class="mat-layout">
+            <div class="card mat-list" id="matList"></div>
+            <aside class="card summary" aria-live="polite">
+              <div class="label">ESTIMATED TOTAL</div>
+              <div class="total" id="total">€0</div>
+              <div class="range" id="range">Typical range —</div>
+              <div class="rows">
+                <div><span>Materials</span><strong id="matCost">€0</strong></div>
+                <div><span>Professional labour</span><strong id="labCost">€0</strong></div>
+                <div class="save hidden" id="saveRow"><span>You save by doing it yourself</span><strong id="saveCost">€0</strong></div>
+              </div>
+              <label class="toggle"><span>I'll do it myself (DIY)</span><span class="switch"><input type="checkbox" id="diyToggle" checked><span></span></span></label>
+              <div class="co2-box"><span style="font-size:22px">🌱</span><div><strong><span data-bind="co2">0</span> kg CO₂e</strong>saved vs. conventional materials</div></div>
+              <p class="fine">Estimates are indicative, based on typical German retail prices in 2026. Excludes structural and electrical work.</p>
+            </aside>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-ghost" data-go="ideas">← Back</button>
+            <button class="btn btn-primary" data-go="guide">Build my DIY guide <span class="arrow">→</span></button>
+          </div>
+        </section>
+
+        <!-- GUIDE -->
+        <section class="screen" id="guide" aria-labelledby="h-guide">
+          <div class="page-head">
+            <div><span class="kicker">Step 5 · DIY guide</span><h1 id="h-guide">Let's make it <em>happen</em>.</h1><p class="lede">Your plan is built from the materials you picked. Tick steps off as you go — progress is saved on this device.</p></div>
+            <button class="btn btn-ghost btn-sm" id="printBtn" type="button">⎙ Print guide</button>
+          </div>
+          <div class="card guide-banner">
+            <div><span class="pill clay">BEGINNER FRIENDLY</span><h3>Your <span data-bind="style">Warm minimalism</span> refresh</h3></div>
+            <div class="guide-stats">
+              <div><strong id="gDays">2</strong><span>days</span></div>
+              <div><strong id="gSteps">6</strong><span>steps</span></div>
+              <div><strong id="gHours">10</strong><span>hours</span></div>
+            </div>
+          </div>
+          <div class="guide-layout">
+            <div class="card checklist">
+              <div class="checklist-head"><h3>Step-by-step plan</h3><span id="gProgressTxt">0 of 6 done</span></div>
+              <div class="bar"><i id="gBar"></i></div>
+              <div id="gList"></div>
+              <div class="done-banner hidden" id="gDone">🎉 All done! Take a photo of your finished room — you've earned it.</div>
+            </div>
+            <aside class="aside-stack">
+              <div class="card"><h4>🧰 What you'll need</h4><ul class="toolkit" id="toolkit"></ul></div>
+              <div class="card"><h4>🦺 Safety first</h4><p>Keep windows open while painting and oiling, wear an FFP2 mask when sanding, and keep children and pets out of the room until surfaces are dry.</p></div>
+            </aside>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-ghost" data-go="materials">← Back</button>
+            <button class="btn btn-primary" data-go="choices">Green choices <span class="arrow">→</span></button>
+          </div>
+        </section>
+
+        <!-- GREEN CHOICES -->
+        <section class="screen" id="choices" aria-labelledby="h-choices">
+          <div class="page-head">
+            <div><span class="kicker">Step 6 · Green choices</span><h1 id="h-choices">Better for your home. <em>Lighter on the planet.</em></h1></div>
+          </div>
+          <div class="card impact-hero" aria-live="polite">
+            <div class="grade" id="grade">B</div>
+            <div><h3>Your project's impact</h3><p id="gradeText">Add a few extras below to push your rating higher.</p></div>
+            <div class="stat"><strong data-bind="co2">0</strong><span>kg CO₂e saved</span></div>
+            <div class="stat"><strong id="renewPct">0%</strong><span>renewable or reused</span></div>
+            <div class="stat"><strong id="extrasCount">0</strong><span>extras added</span></div>
+          </div>
+          <div class="filters" id="filters">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="recycled">♻ Recycled</button>
+            <button class="chip" data-filter="natural">🌿 Natural</button>
+            <button class="chip" data-filter="local">📍 Local</button>
+            <span class="count" id="choiceCount"></span>
+          </div>
+          <div class="choices" id="choiceGrid"></div>
+          <div class="card tip-card"><span style="font-size:22px">💡</span><p><strong>Did you know?</strong> Reusing what you already have — floors, doors, furniture — is usually the single biggest carbon saving in a renovation.</p></div>
+
+          <div class="card final">
+            <div><span class="kicker">All set</span><h2>Your plan is <em>ready</em>.</h2><p>Download a summary to take shopping, or share it with whoever's holding the other end of the shelf.</p></div>
+            <div class="btns">
+              <button class="btn btn-ghost" data-go="guide">Open guide</button>
+              <button class="btn btn-clay" id="downloadBtn" type="button">Download plan ↓</button>
+            </div>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-ghost" data-go="guide">← Back</button>
+            <button class="btn btn-primary" data-go="home">Back to start</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  (() => {
+    const $ = (s, el = document) => el.querySelector(s);
+    const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+    const eur = n => '€' + Math.round(n).toLocaleString('en-US');
+
+    /* ---------- Data ---------- */
+    const SCREENS = [
+      { id: 'home', label: 'Welcome' },
+      { id: 'upload', label: 'Upload photo' },
+      { id: 'analysis', label: 'Room analysis' },
+      { id: 'ideas', label: 'Style ideas' },
+      { id: 'materials', label: 'Materials & cost' },
+      { id: 'guide', label: 'DIY guide' },
+      { id: 'choices', label: 'Green choices' }
+    ];
+
+    const STYLES = [
+      { id: 'warm', name: 'Warm minimalism', match: 96, desc: 'Natural textures, soft neutrals and a few timeless pieces.', blurb: 'Creamy mineral paint, oiled oak and undyed linen keep it calm and bright.', paint: 'warm white', palette: { wall: '#ece3d3', wall2: '#e2d7c3', floor: '#b8946b', floor2: '#a6825b', sofa: '#d8cbb4', sofa2: '#c7b89e', rug: '#cdbfa5', art: '#c4623a', plant: '#6e8a63', frame: '#fbf7ef' } },
+      { id: 'nordic', name: 'Scandinavian calm', match: 91, desc: 'Pale timber, cool light and beautifully simple forms.', blurb: 'Soft grey-white walls, pale floor and blue-grey textiles maximise daylight.', paint: 'soft grey-white', palette: { wall: '#eef0ec', wall2: '#e2e6e1', floor: '#d6c29f', floor2: '#c6b08b', sofa: '#b7c1c2', sofa2: '#a2adae', rug: '#e5e3dc', art: '#5f7d8c', plant: '#7c9a77', frame: '#ffffff' } },
+      { id: 'reclaimed', name: 'Modern reclaimed', match: 88, desc: 'Salvaged character with a deep, contemporary edge.', blurb: 'A deep green accent wall, dark oiled floor and rust tones add drama.', paint: 'forest green', palette: { wall: '#3f5a4a', wall2: '#364f40', floor: '#7a5840', floor2: '#664833', sofa: '#a5714c', sofa2: '#8f5f3e', rug: '#cdbfa5', art: '#e9b949', plant: '#8fae8f', frame: '#d9d2c4' } }
+    ];
+
+    // price: fixed € or per m² floor (perM2). co2 in kg saved (per m² if perM2).
+    const MATERIALS = [
+      { id: 'floor', ico: '🪵', name: 'Restore existing oak floor', sub: 'Sand + natural hardwax oil', tag: 'Keeps 100% of the floor', perM2: true, mat: 9, lab: 24, co2: 16, hours: 6, tools: ['Floor sander (rent, ~€45/day)', 'Hardwax oil & lint-free cloths'] },
+      { id: 'paint', ico: '🎨', name: 'Mineral wall paint', sub: 'Silicate, breathable, low-VOC', tag: 'Near-zero VOC', perM2: true, mat: 7.5, lab: 18, co2: 2.5, hours: 5, tools: ['Roller, tray & angled brush', 'Filler, sandpaper & masking tape'] },
+      { id: 'led', ico: '💡', name: 'Warm LED lighting', sub: '2700K, dimmable, 3 fittings', tag: '−80% energy', mat: 140, lab: 90, co2: 55, hours: 1.5, tools: ['Voltage tester & screwdriver'] },
+      { id: 'curtains', ico: '🪟', name: 'Organic linen curtains', sub: 'Undyed European flax, 1 pair', tag: 'Renewable fibre', mat: 220, lab: 30, co2: 22, hours: 1, tools: ['Drill & wall plugs for the rail'] },
+      { id: 'rug', ico: '🧶', name: 'Recycled wool rug', sub: '80% recycled fibre · 160 × 230 cm', tag: '80% recycled', mat: 260, lab: 0, co2: 38, hours: 0.25, tools: [] },
+      { id: 'shelf', ico: '📚', name: 'Reclaimed timber shelving', sub: 'Salvaged boards, 2 × 120 cm', tag: 'Reused wood', mat: 160, lab: 60, co2: 30, hours: 1.5, tools: ['Spirit level & stud finder'] }
+    ];
+
+    const CHOICES = [
+      { id: 'cork', cat: 'natural', ico: '🟫', bg: '#efe2cf', badge: 'TOP PICK', name: 'Cork underlay & pinboard', desc: 'Harvested without felling a tree; great for acoustics.', co2: 18, price: 85 },
+      { id: 'lime', cat: 'natural', ico: '🪨', bg: '#ece9e1', badge: 'HEALTHY HOME', name: 'Natural lime plaster', desc: 'Breathable feature wall that regulates humidity.', co2: 24, price: 190 },
+      { id: 'sofa', cat: 'recycled', ico: '🛋️', bg: '#e3e9df', badge: 'SECOND LIFE', name: 'Reupholster your sofa', desc: 'New recycled-fibre cover instead of a new sofa.', co2: 160, price: 420 },
+      { id: 'tiles', cat: 'recycled', ico: '🔲', bg: '#e6e2ec', badge: 'RECYCLED', name: 'Recycled glass tiles', desc: 'Made from 95% post-consumer glass for a fireplace or nook.', co2: 20, price: 140 },
+      { id: 'plants', cat: 'local', ico: '🪴', bg: '#dfe8dc', badge: 'LOCAL', name: 'Peat-free local plants', desc: 'Grown in a nursery within 50 km, in reusable pots.', co2: 6, price: 60 },
+      { id: 'chairs', cat: 'local', ico: '🪑', bg: '#f1e4d7', badge: 'LOCAL', name: 'Vintage chairs, restored', desc: 'From a local reuse store, refinished with plant-based oil.', co2: 45, price: 150 }
+    ];
+
+    /* ---------- State ---------- */
+    const STORE = 'renovo-green-v2';
+    const defaults = () => ({ screen: 'home', size: 24, style: 'warm', mats: MATERIALS.map(m => m.id), diy: true, steps: [], extras: [], analysed: false, visited: ['home'] });
+    let state = Object.assign(defaults(), safeParse(localStorage.getItem(STORE)));
+    let photo = sessionStorage.getItem(STORE + '-photo') || null;
+    let photoName = sessionStorage.getItem(STORE + '-name') || '';
+
+    function safeParse(s) { try { return JSON.parse(s) || {}; } catch { return {}; } }
+    function save() { localStorage.setItem(STORE, JSON.stringify(state)); }
+    function savePhoto() {
+      try {
+        if (photo) { sessionStorage.setItem(STORE + '-photo', photo); sessionStorage.setItem(STORE + '-name', photoName); }
+        else { sessionStorage.removeItem(STORE + '-photo'); sessionStorage.removeItem(STORE + '-name'); }
+      } catch { /* image too large to keep between reloads — fine */ }
+    }
+    const style = () => STYLES.find(s => s.id === state.style) || STYLES[0];
+
+    /* ---------- Illustration ---------- */
+    function roomSVG(p, w = 800, h = 600) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="${w}" height="${h}" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="wl" x1="0" x2="1"><stop offset="0" stop-color="${p.wall}"/><stop offset="1" stop-color="${p.wall2}"/></linearGradient>
+          <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.floor}"/><stop offset="1" stop-color="${p.floor2}"/></linearGradient>
+          <linearGradient id="lt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+        </defs>
+        <rect width="800" height="600" fill="url(#wl)"/>
+        <rect y="440" width="800" height="160" fill="url(#fl)"/>
+        ${Array.from({ length: 9 }, (_, i) => `<line x1="${i * 100}" y1="440" x2="${i * 100 - 60}" y2="600" stroke="${p.floor2}" stroke-width="2" opacity=".6"/>`).join('')}
+        <rect y="432" width="800" height="10" fill="${p.frame}" opacity=".8"/>
+        <rect x="470" y="70" width="230" height="270" rx="4" fill="#cfe0dc" stroke="${p.frame}" stroke-width="14"/>
+        <path d="M585 77v256M477 205h216" stroke="${p.frame}" stroke-width="8"/>
+        <polygon points="470,340 700,340 640,600 330,600" fill="url(#lt)"/>
+        <rect x="450" y="60" width="16" height="300" rx="6" fill="${p.rug}" opacity=".9"/>
+        <rect x="704" y="60" width="16" height="300" rx="6" fill="${p.rug}" opacity=".9"/>
+        <rect x="110" y="140" width="130" height="160" fill="${p.art}" stroke="${p.frame}" stroke-width="10"/>
+        <circle cx="175" cy="200" r="34" fill="${p.frame}" opacity=".35"/>
+        <rect x="270" y="190" width="150" height="10" rx="3" fill="${p.floor2}"/>
+        <rect x="290" y="160" width="26" height="30" rx="4" fill="${p.sofa2}"/><rect x="330" y="150" width="18" height="40" rx="3" fill="${p.art}"/><circle cx="385" cy="176" r="14" fill="${p.plant}"/>
+        <ellipse cx="330" cy="545" rx="280" ry="42" fill="${p.rug}"/>
+        <rect x="80" y="330" width="440" height="110" rx="30" fill="${p.sofa}"/>
+        <rect x="60" y="370" width="480" height="100" rx="26" fill="${p.sofa2}"/>
+        <rect x="100" y="380" width="200" height="56" rx="18" fill="${p.sofa}"/><rect x="310" y="380" width="200" height="56" rx="18" fill="${p.sofa}"/>
+        <rect x="95" y="468" width="16" height="36" rx="4" fill="${p.floor2}"/><rect x="490" y="468" width="16" height="36" rx="4" fill="${p.floor2}"/>
+        <rect x="150" y="345" width="70" height="50" rx="14" fill="${p.art}" opacity=".85"/>
+        <ellipse cx="330" cy="520" rx="90" ry="16" fill="${p.floor2}"/><rect x="320" y="520" width="20" height="40" fill="${p.floor2}"/>
+        <path d="M640 560h80l-10-70h-60z" fill="${p.art}" opacity=".9"/>
+        <path d="M680 490c-50-40-60-110-20-150 10 50 20 80 20 150zm0 0c40-50 90-70 110-50-20 30-60 50-110 50zm0 0c-10-70 10-130 60-150 0 60-20 110-60 150z" fill="${p.plant}"/>
+        <path d="M620 250v180M590 430h60" stroke="${p.floor2}" stroke-width="5"/><path d="M590 250h60l-14-44h-32z" fill="${p.frame}"/>
+      </svg>`;
+    }
+    const svgURL = svg => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    const SAMPLE = svgURL(roomSVG({ wall: '#ddd6c8', wall2: '#d2cab9', floor: '#a98a6b', floor2: '#957556', sofa: '#9f9a8b', sofa2: '#8d877a', rug: '#c7bba4', art: '#7d8a7a', plant: '#5f7a58', frame: '#f2eee5' }));
+
+    /* ---------- Toast ---------- */
+    let toastT;
+    function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600); }
+
+    /* ---------- Navigation ---------- */
+    function renderNav() {
+      $('#stepsNav').innerHTML = SCREENS.map((s, i) => `<li><button class="step-link" data-go="${s.id}" type="button"><span class="step-dot">${i + 1}</span>${s.label}</button></li>`).join('');
+    }
+    function go(id, push = true) {
+      if (!SCREENS.some(s => s.id === id)) id = 'home';
+      if (id === 'analysis' && !photo) { toast('Add a photo or use the sample room first'); id = 'upload'; if (!push) history.replaceState(null, '', '#upload'); }
+      state.screen = id;
+      if (!state.visited.includes(id)) state.visited.push(id);
+      save();
+      $$('.screen').forEach(s => s.classList.toggle('active', s.id === id));
+      const idx = SCREENS.findIndex(s => s.id === id);
+      $$('.step-link').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+        b.classList.toggle('done', i !== idx && state.visited.includes(SCREENS[i].id));
+        b.toggleAttribute('aria-current', i === idx);
+      });
+      $('#mobileStep').textContent = `${idx + 1} / ${SCREENS.length}`;
+      document.title = `${SCREENS[idx].label} · RENOVO GREEN`;
+      document.body.classList.remove('menu-open');
+      if (push && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+      window.scrollTo(0, 0);
+      if (id === 'analysis') state.analysed ? showAnalysisDone() : runAnalysis();
+    }
+    document.addEventListener('click', e => {
+      const el = e.target.closest('[data-go]');
+      if (!el || el.disabled) return;
+      e.preventDefault();
+      go(el.dataset.go);
+    });
+    window.addEventListener('popstate', () => go(location.hash.slice(1) || 'home', false));
+    $('#menuBtn').onclick = () => document.body.classList.add('menu-open');
+    $('#scrim').onclick = () => document.body.classList.remove('menu-open');
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.body.classList.remove('menu-open'); });
+
+    /* ---------- Photo ---------- */
+    const fileInput = $('#fileInput'), dz = $('#dropzone');
+    function setPhoto(src, name) {
+      photo = src; photoName = name || '';
+      state.analysed = false; save(); savePhoto();
+      renderPhoto();
+    }
+    function renderPhoto() {
+      const has = !!photo;
+      dz.classList.toggle('hidden', has);
+      $('#preview').classList.toggle('hidden', !has);
+      $('#analyseBtn').disabled = !has;
+      if (has) {
+        $('#previewImg').src = photo;
+        $('#scanImg').src = photo;
+        $('#fileName').textContent = '✓ ' + (photoName || 'Photo ready for analysis');
+        $('#projectThumb').innerHTML = `<img src="${photo}" alt="">`;
+      } else {
+        $('#projectThumb').innerHTML = roomSVG(style().palette, 44, 44);
+      }
+    }
+    function handleFile(file) {
+      if (!file) return;
+      if (!file.type.startsWith('image/')) return toast('Please choose an image file');
+      if (file.size > 10 * 1024 * 1024) return toast('That image is over 10 MB — try a smaller one');
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        // Downscale so it's light to keep around
+        const max = 1400, k = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        setPhoto(c.toDataURL('image/jpeg', .85), file.name);
+        toast('Photo added');
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); toast("Couldn't read that image"); };
+      img.src = url;
+    }
+    dz.addEventListener('click', () => fileInput.click());
+    dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+    fileInput.addEventListener('change', () => { handleFile(fileInput.files[0]); fileInput.value = ''; });
+    ['dragenter', 'dragover'].forEach(t => dz.addEventListener(t, e => { e.preventDefault(); dz.classList.add('drag'); }));
+    ['dragleave', 'drop'].forEach(t => dz.addEventListener(t, e => { e.preventDefault(); dz.classList.remove('drag'); }));
+    dz.addEventListener('drop', e => handleFile(e.dataTransfer.files[0]));
+    $('#removePhoto').onclick = () => { setPhoto(null); fileInput.click(); };
+    const useSample = () => { setPhoto(SAMPLE, 'Sample living room'); toast('Sample room loaded'); };
+    $('#sampleBtn').onclick = useSample;
+    $('#heroSample').onclick = () => { useSample(); go('analysis'); };
+    $('#analyseBtn').onclick = () => { state.analysed = false; go('analysis'); };
+
+    const sizeInput = $('#sizeInput');
+    sizeInput.addEventListener('input', () => { state.size = +sizeInput.value; save(); renderAll(); });
+
+    /* ---------- Analysis ---------- */
+    let timers = [];
+    function runAnalysis() {
+      timers.forEach(clearTimeout); timers = [];
+      const steps = $$('#scanSteps li'), tags = $$('#scan .tag'), ins = $$('#insights .insight');
+      steps.forEach(s => s.className = '');
+      tags.forEach(t => t.classList.remove('show'));
+      ins.forEach(i => i.classList.remove('show'));
+      $('#insights').classList.add('hidden');
+      $('#progressCard').classList.remove('hidden');
+      $('#scan').classList.add('scanning');
+      $('#toIdeas').disabled = true;
+      $('#scanStatus').textContent = 'Analysing';
+      setPct(0);
+      steps.forEach((s, i) => {
+        timers.push(setTimeout(() => {
+          if (i) steps[i - 1].className = 'done';
+          s.className = 'active';
+          tags[i]?.classList.add('show');
+          setPct((i + .5) / steps.length * 100);
+        }, 200 + i * 900));
+      });
+      timers.push(setTimeout(() => {
+        steps.forEach(s => s.className = 'done');
+        setPct(100);
+        $('#scanStatus').textContent = 'Complete';
+        state.analysed = true; save();
+        timers.push(setTimeout(showAnalysisDone, 450));
+      }, 200 + steps.length * 900));
+    }
+    function setPct(p) { $('#scanBar').style.width = p + '%'; $('#scanPct').textContent = Math.round(p) + '%'; }
+    function showAnalysisDone() {
+      $('#scan').classList.remove('scanning');
+      $$('#scan .tag').forEach(t => t.classList.add('show'));
+      $('#progressCard').classList.add('hidden');
+      $('#insights').classList.remove('hidden');
+      $$('#insights .insight').forEach((el, i) => timers.push(setTimeout(() => el.classList.add('show'), i * 120)));
+      $('#toIdeas').disabled = false;
+    }
+    $('#rerunBtn').onclick = () => { state.analysed = false; runAnalysis(); };
+
+    /* ---------- Styles ---------- */
+    function renderStyles() {
+      $('#styles').innerHTML = STYLES.map(s => `
+        <button class="card style-card ${s.id === state.style ? 'selected' : ''}" role="radio" aria-checked="${s.id === state.style}" data-style="${s.id}" type="button">
+          <div class="style-visual">${roomSVG(s.palette)}<span class="pill match ${s.match > 95 ? 'sun' : ''}">${s.match}% match</span><span class="style-check">✓</span></div>
+          <div class="style-body"><h3>${s.name}</h3><p>${s.desc}</p>
+            <div class="swatches">${['wall', 'floor', 'sofa', 'art', 'plant'].map(k => `<i style="background:${s.palette[k]}"></i>`).join('')}</div></div>
+        </button>`).join('');
+    }
+    $('#styles').addEventListener('click', e => {
+      const c = e.target.closest('.style-card'); if (!c) return;
+      state.style = c.dataset.style; save(); renderAll();
+      toast(style().name + ' selected');
+    });
+
+    /* ---------- Materials ---------- */
+    const wallArea = () => state.size * 2.6; // rough wall area from floor area
+    function matCost(m) {
+      const qty = m.perM2 ? (m.id === 'paint' ? wallArea() : state.size) : 1;
+      return { mat: m.mat * qty, lab: m.lab * qty, co2: m.co2 * (m.perM2 ? state.size : 1) };
+    }
+    function renderMaterials() {
+      const s = style();
+      $('#matList').innerHTML = MATERIALS.map(m => {
+        const c = matCost(m);
+        const sub = m.id === 'paint' ? `${m.sub} · ${s.paint} · ~${Math.round(wallArea())} m² walls` : m.id === 'floor' ? `${m.sub} · ${state.size} m²` : m.sub;
+        return `<label class="mat">
+          <input type="checkbox" data-mat="${m.id}" ${state.mats.includes(m.id) ? 'checked' : ''}>
+          <span class="ico">${m.ico}</span>
+          <span><strong>${m.name}</strong><small>${sub}</small><br><span class="pill">${m.tag}</span></span>
+          <span class="price">${eur(c.mat)}<small>${m.perM2 ? eur(m.mat) + ' / m²' : 'materials'}</small></span>
+        </label>`;
+      }).join('');
+    }
+    $('#matList').addEventListener('change', e => {
+      const id = e.target.dataset.mat; if (!id) return;
+      state.mats = e.target.checked ? [...new Set([...state.mats, id])] : state.mats.filter(x => x !== id);
+      save(); renderTotals(); renderGuide();
+    });
+    $('#diyToggle').addEventListener('change', e => { state.diy = e.target.checked; save(); renderTotals(); });
+
+    function totals() {
+      let mat = 0, lab = 0, co2 = 0;
+      MATERIALS.filter(m => state.mats.includes(m.id)).forEach(m => { const c = matCost(m); mat += c.mat; lab += c.lab; co2 += c.co2; });
+      const ex = CHOICES.filter(c => state.extras.includes(c.id));
+      co2 += ex.reduce((a, c) => a + c.co2, 0);
+      return { mat, lab, co2: Math.round(co2), extrasPrice: ex.reduce((a, c) => a + c.price, 0) };
+    }
+    function renderTotals() {
+      const t = totals();
+      const total = t.mat + (state.diy ? 0 : t.lab);
+      $('#total').textContent = eur(total);
+      $('#range').textContent = total ? `Typical range ${eur(total * .85)} – ${eur(total * 1.2)}` : 'Select materials to see an estimate';
+      $('#matCost').textContent = eur(t.mat);
+      $('#labCost').textContent = eur(t.lab);
+      $('#labCost').classList.toggle('strike', state.diy);
+      $('#saveRow').classList.toggle('hidden', !state.diy || !t.lab);
+      $('#saveCost').textContent = '−' + eur(t.lab);
+      $('#diyToggle').checked = state.diy;
+      $$('[data-bind="co2"]').forEach(el => el.textContent = t.co2.toLocaleString('en-US'));
+      $('#sideMeter').style.width = Math.min(100, t.co2 / 10) + '%';
+      renderImpact(t);
+    }
+
+    /* ---------- Guide ---------- */
+    function guideSteps() {
+      const has = id => state.mats.includes(id);
+      const s = style();
+      const list = [{ id: 'prep', title: 'Clear & protect the room', text: 'Move furniture out or to the centre, cover it with old sheets, and open the windows.', time: 1, tags: ['Everyone'] }];
+      if (has('floor')) list.push({ id: 'floor', title: 'Sand & oil the floor', text: `Sand ${state.size} m² with 60 → 120 grit, vacuum thoroughly, then work in two thin coats of hardwax oil along the grain.`, time: 6, tags: ['Mask on', 'Overnight drying'] });
+      if (has('paint')) list.push({ id: 'walls', title: 'Repair & paint the walls', text: `Fill cracks, sand smooth, tape edges. Cut in with a brush, then roll two coats of ${s.paint} mineral paint in W-shaped strokes.`, time: 5, tags: ['Low-VOC', '4 h between coats'] });
+      if (has('led')) list.push({ id: 'led', title: 'Swap in warm LED fittings', text: 'Switch off the circuit at the fuse box and test it is dead before swapping fittings. If in doubt, call an electrician.', time: 1.5, tags: ['Safety check'] });
+      if (has('shelf')) list.push({ id: 'shelf', title: 'Hang reclaimed shelving', text: 'Find the studs or use heavy-duty plugs, level the brackets and oil the boards before mounting.', time: 1.5, tags: ['Second pair of hands'] });
+      if (has('curtains') || has('rug')) list.push({ id: 'textiles', title: 'Layer in natural textiles', text: [has('curtains') && 'Fit the rail 10–15 cm above the window and hang the linen curtains', has('rug') && 'roll out the recycled wool rug so the front sofa legs sit on it'].filter(Boolean).join('; ') + '.', time: 1.25, tags: ['Quick win'] });
+      list.push({ id: 'style', title: 'Style, then pass things on', text: 'Bring furniture back, add plants and art, and donate or sell anything you no longer need.', time: 1, tags: ['Zero waste'] });
+      return list;
+    }
+    function renderGuide() {
+      const steps = guideSteps();
+      state.steps = state.steps.filter(id => steps.some(s => s.id === id));
+      const hours = steps.reduce((a, s) => a + s.time, 0);
+      $('#gSteps').textContent = steps.length;
+      $('#gHours').textContent = Math.round(hours);
+      $('#gDays').textContent = Math.max(1, Math.ceil(hours / 6));
+      $('#gList').innerHTML = steps.map((s, i) => `
+        <label class="gstep"><input type="checkbox" data-step="${s.id}" ${state.steps.includes(s.id) ? 'checked' : ''}>
+          <span class="gcheck">${i + 1}</span>
+          <div><strong>${s.title}</strong><p>${s.text}</p><div class="gmeta"><span class="pill sun">⏱ ${s.time < 1 ? Math.round(s.time * 60) + ' min' : s.time + ' h'}</span>${s.tags.map(t => `<span class="pill">${t}</span>`).join('')}</div></div>
+        </label>`).join('');
+      const tools = [...new Set(MATERIALS.filter(m => state.mats.includes(m.id)).flatMap(m => m.tools))];
+      $('#toolkit').innerHTML = ['Drop cloths & old clothes', ...tools].map(t => `<li>${t}</li>`).join('');
+      renderGuideProgress(steps.length);
+    }
+    function renderGuideProgress(n = guideSteps().length) {
+      const done = state.steps.length;
+      $('#gBar').style.width = (n ? done / n * 100 : 0) + '%';
+      $('#gProgressTxt').textContent = `${done} of ${n} done`;
+      $('#gDone').classList.toggle('hidden', done !== n);
+    }
+    $('#gList').addEventListener('change', e => {
+      const id = e.target.dataset.step; if (!id) return;
+      state.steps = e.target.checked ? [...new Set([...state.steps, id])] : state.steps.filter(x => x !== id);
+      save(); renderGuideProgress();
+      if (e.target.checked && state.steps.length === guideSteps().length) toast('Renovation complete 🎉');
+    });
+    $('#printBtn').onclick = () => window.print();
+
+    /* ---------- Green choices ---------- */
+    let filter = 'all';
+    function renderChoices() {
+      const list = CHOICES.filter(c => filter === 'all' || c.cat === filter);
+      $('#choiceGrid').innerHTML = list.map(c => {
+        const added = state.extras.includes(c.id);
+        return `<article class="card choice ${added ? 'added' : ''}">
+          <div class="choice-visual" style="background:${c.bg}"><span class="pill">${c.badge}</span><span aria-hidden="true">${c.ico}</span></div>
+          <div class="choice-body"><h3>${c.name}</h3><p>${c.desc}</p>
+            <div class="choice-meta"><span>🌱 −${c.co2} kg CO₂e</span><strong>${eur(c.price)}</strong></div>
+            <button class="add-btn" data-choice="${c.id}" type="button" aria-pressed="${added}">${added ? '✓ Added to project' : '+ Add to project'}</button></div>
+        </article>`;
+      }).join('');
+      $('#choiceCount').textContent = `${list.length} recommendation${list.length === 1 ? '' : 's'}`;
+    }
+    $('#filters').addEventListener('click', e => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      filter = b.dataset.filter;
+      $$('#filters .chip').forEach(c => c.classList.toggle('active', c === b));
+      renderChoices();
+    });
+    $('#choiceGrid').addEventListener('click', e => {
+      const b = e.target.closest('[data-choice]'); if (!b) return;
+      const id = b.dataset.choice, c = CHOICES.find(x => x.id === id);
+      const on = !state.extras.includes(id);
+      state.extras = on ? [...state.extras, id] : state.extras.filter(x => x !== id);
+      save(); renderChoices(); renderTotals();
+      toast(on ? `${c.name} added` : `${c.name} removed`);
+    });
+    function renderImpact(t) {
+      const grades = [[900, 'A+', 'Outstanding — this is about as light as a renovation gets.'], [650, 'A', 'Excellent. A couple more extras could take you to A+.'], [400, 'B', 'Good start. Add a few extras below to push your rating higher.'], [150, 'C', 'Keeping your floor and adding natural textiles makes a big difference.'], [0, 'D', 'Select some materials to start building your impact.']];
+      const [, g, txt] = grades.find(([min]) => t.co2 >= min);
+      $('#grade').textContent = g;
+      $('#gradeText').textContent = txt;
+      const items = state.mats.length + state.extras.length, total = MATERIALS.length + CHOICES.length;
+      $('#renewPct').textContent = Math.round(items / total * 100) + '%';
+      $('#extrasCount').textContent = state.extras.length;
+    }
+
+    /* ---------- Download ---------- */
+    $('#downloadBtn').onclick = () => {
+      const t = totals(), s = style();
+      const lines = [
+        'RENOVO GREEN — Renovation plan', '='.repeat(32), '',
+        `Room: Living room, ${state.size} m²`, `Style: ${s.name}`, '',
+        'MATERIALS',
+        ...MATERIALS.filter(m => state.mats.includes(m.id)).map(m => `  [ ] ${m.name} — ${eur(matCost(m).mat)}`),
+        ...(state.extras.length ? ['', 'GREEN EXTRAS', ...CHOICES.filter(c => state.extras.includes(c.id)).map(c => `  [ ] ${c.name} — ${eur(c.price)}`)] : []),
+        '', `Materials: ${eur(t.mat)}`, `Labour: ${state.diy ? 'DIY (saving ' + eur(t.lab) + ')' : eur(t.lab)}`, `Extras: ${eur(t.extrasPrice)}`,
+        `Estimated total: ${eur(t.mat + (state.diy ? 0 : t.lab) + t.extrasPrice)}`, `CO2e saved: ~${t.co2} kg`, '',
+        'DIY STEPS', ...guideSteps().map((g, i) => `  ${state.steps.includes(g.id) ? '[x]' : '[ ]'} ${i + 1}. ${g.title} (${g.time} h)`), ''
+      ];
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/plain' }));
+      a.download = 'renovo-green-plan.txt';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      toast('Plan downloaded');
+    };
+
+    $('#resetBtn').onclick = () => {
+      if (!confirm('Start a new project? Your current selections and progress will be cleared.')) return;
+      state = defaults(); setPhoto(null); save(); renderAll(); go('home');
+      toast('New project started');
+    };
+
+    /* ---------- Render ---------- */
+    function renderAll() {
+      const s = style();
+      sizeInput.value = state.size;
+      $('#sizeOut').textContent = state.size + ' m²';
+      $$('[data-bind="size"]').forEach(el => el.textContent = state.size);
+      $$('[data-bind="style"]').forEach(el => el.textContent = s.name);
+      $('#styleName').textContent = s.name;
+      $('#styleBlurb').textContent = s.blurb;
+      $('#projectMeta').textContent = `${state.size} m² · ${s.name}`;
+      $('#heroArt').innerHTML = roomSVG(s.palette);
+      renderStyles(); renderMaterials(); renderTotals(); renderGuide(); renderChoices(); renderPhoto();
+    }
+
+    $('#sampleThumb').innerHTML = `<img src="${SAMPLE}" alt="" style="width:100%;height:100%;object-fit:cover">`;
+    renderNav();
+    renderAll();
+    go(location.hash.slice(1) || state.screen || 'home', false);
+  })();
+  </script>
+</body>
+</html>
